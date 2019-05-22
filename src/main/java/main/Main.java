@@ -26,8 +26,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        IGNORE_FILE_PATH = ROOT_DIRECTORY +
-                FilenameUtils.separatorsToSystem("ignore");
+        IGNORE_FILE_PATH = ROOT_DIRECTORY + ".ignore";
     }
 
     public static void main(String[] args) throws IOException {
@@ -55,9 +54,9 @@ public class Main {
                 continue;
             }
 
-            if (!line.endsWith("/")) {
-                String path = ROOT_DIRECTORY + line;
-                excludedFiles.add(FilenameUtils.separatorsToSystem(path));
+            if (!line.endsWith(DIRECTORY_END)) {
+                String relativePath = FilenameUtils.separatorsToSystem(line);
+                excludedFiles.add(ROOT_DIRECTORY + relativePath);
             }
         }
 
@@ -72,9 +71,9 @@ public class Main {
                 continue;
             }
 
-            if (line.endsWith("/")) {
-                String path = ROOT_DIRECTORY + line.substring(0, line.length() - 1);
-                excludedDirectories.add(FilenameUtils.separatorsToSystem(path));
+            if (line.endsWith(DIRECTORY_END)) {
+                String relativePath = FilenameUtils.separatorsToSystem(line.substring(0, line.length() - 1));
+                excludedDirectories.add(ROOT_DIRECTORY + relativePath);
             }
         }
 
